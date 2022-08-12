@@ -1,0 +1,14 @@
+.footer {
+  height: 80px;
+  background: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  i {
+    color: white;
+    margin: 0 20px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+}

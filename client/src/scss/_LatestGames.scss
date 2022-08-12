@@ -1,0 +1,105 @@
+.latest-games {
+  padding: 70px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .title {
+    color: #ffffff;
+    margin: 0;
+    font-size: 35px;
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+
+  .games {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 15px -10px;
+
+    .item {
+      width: calc(20% - 25px);
+      margin: 12.5px;
+      position: relative;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .content {
+        position: absolute;
+        bottom: 0;
+        height: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.8666666667);
+        transition: 0.2s;
+        opacity: 0;
+        display: flex;
+        justify-content: flex-end;
+        flex-flow: column;
+
+        .name {
+          color: #ffffff;
+          font-size: 20px;
+          text-transform: uppercase;
+          font-weight: 900;
+          padding: 10px 20px;
+          text-align: center;
+        }
+
+        .more-info {
+          outline: 0;
+          background: transparent;
+          color: #ffffff;
+          border: 1px solid #ffffff;
+          border-radius: 30px;
+          padding: 10px 25px;
+          text-transform: uppercase;
+          font-weight: 900;
+          font-size: 12px;
+          left: 50%;
+          position: relative;
+          transform: translateX(-50%);
+          transition: 0.2s;
+          width: 135px;
+          margin-bottom: 50px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #ffffff;
+            color: #000000;
+          }
+        }
+      }
+
+      &:hover {
+        .content {
+          height: 100%;
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .see-more {
+    display: inline-block;
+    font-size: 20px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 1px;
+    border: 1px solid #ffffff;
+    padding: 10px 25px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.2s;
+
+    &:hover {
+      background-color: #ffffff;
+      color: #000000;
+    }
+  }
+}

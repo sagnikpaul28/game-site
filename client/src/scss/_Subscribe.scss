@@ -1,0 +1,86 @@
+.subscribe {
+  margin: 70px 0 0;
+  padding: 70px 30px 150px;
+  background: #242b62;
+  position: relative;
+
+  .content {
+    margin-left: 50%;
+    transform: translateX(-10%);
+    position: relative;
+    z-index: 2;
+
+    .title {
+      color: #ffffff;
+      text-transform: uppercase;
+      font-weight: 900;
+      font-size: 35px;
+      letter-spacing: 1px;
+  
+      span {
+        color: #33bffe;
+      }
+    }
+
+    .form {
+      position: relative;
+
+      input {
+        max-width: 410px;
+        width: 100%;
+        background: transparent;
+        outline: 0;
+        border: 0;
+        border-bottom: 1px solid #ffffff;
+        font-size: 17px;
+        color: #ffffff;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 1px;
+        padding-bottom: 8px;
+
+        &::placeholder {
+          color: #ffffffaa;
+        }
+      }
+
+      button {
+        background: #33bffe;
+        height: 32px;
+        width: 38px;
+        border-radius: 50%;
+        color: #ffffff;
+        font-size: 20px;
+        transform: scaleY(1.2);
+        font-weight: 700;
+        line-height: 3px;
+        outline: 0;
+        cursor: pointer;
+        position: relative;
+        top: 20px;
+        left: 0px;
+        border: 0;
+      }
+    }
+  }
+  
+
+  .ac {
+    position: absolute;
+    height: calc(100% + 70px);
+    bottom: 0;
+    right: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  .abstract {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: .2;
+    object-fit: cover;
+  }
+}
