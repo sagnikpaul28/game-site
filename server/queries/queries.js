@@ -34,16 +34,9 @@ const getGenresForAGame = async function(gameId) {
 
 const getDetailsForAGame = async function(gameId) {
     let promise = new Promise((resolve, reject) => {
-        con.query(`SELECT description, release_date, video_url FROM game_details WHERE game_id = ${gameId}`, function(error, results) {
+        con.query(`SELECT description, release_date as releaseDate, video_url as videoUrl, featured_image as featuredImage, stock FROM game_details WHERE game_id = ${gameId}`, function(error, results) {
             if (error) reject(new Error(error));
-            resolve(results.map(item => {
-                return {
-                    description: item.description,
-                    releaseDate: item.release_date,
-                    videoUrl: item.video_url,
-                    featuredImage: item.featured_image
-                }
-            })[0])
+            resolve(results[0])
         })
     });
     return await promise;
@@ -69,9 +62,19 @@ const getRatingsForAGame = async function(gameId) {
     return await promise;
 }
 
+const getImagesForAGame = async function(gameId) {
+    let promise = new Promise((resolve, reject) => {
+        con.query(`SELECT image_url as imageUrl FROM game_images WHERE game_id = ${gameId}`, function(error, results) {
+            if (error) reject(new Error(error));
+            resolve(results.map(item => item.imageUrl));
+        })
+    });
+    return await promise;
+}
+
 const getAllGamesRootQuery = async function() {
     let promise = new Promise((resolve, reject) => {
-        con.query("SELECT * FROM games", function(error, results) {
+        con.query("SELECT id, name, original_price as originalPrice, discounted_price as discountedPrice, publisher, image FROM games", function(error, results) {
             if (error) reject(new Error(error));
             resolve(results)
         })
@@ -112,6 +115,26 @@ const getAllGamesForAGenre = async function(genre) {
 const getAllFeaturedGames = async function() {
     let promise = new Promise((resolve, reject) => {
         con.query("SELECT * FROM game_details JOIN games ON games.id = game_details.game_id WHERE game_details.featured_image <> ''", function(error, results) {
+            if (error) reject(new Error(error));
+            resolve(results)
+        })
+    });
+    return await promise;
+}
+
+const getLatestGames = async function() {
+    let promise = new Promise((resolve, reject) => {
+        con.query("SELECT games.id, games.name, games.original_price as originalPrice, games.discounted_price as discountedPrice, games.publisher, games.image FROM game_details JOIN games ON games.id = game_details.game_id WHERE game_details.featured_image IS NULL ORDER BY game_details.release_date DESC LIMIT 10 OFFSET 1", function(error, results) {
+            if (error) reject(new Error(error));
+            resolve(results)
+        })
+    });
+    return await promise;
+}
+
+const getLatestGame = async function() {
+    let promise = new Promise((resolve, reject) => {
+        con.query("SELECT games.id, games.name, games.original_price as originalPrice, games.discounted_price as discountedPrice, games.publisher, games.image FROM game_details JOIN games ON games.id = game_details.game_id WHERE game_details.featured_image IS NULL ORDER BY game_details.release_date DESC LIMIT 1", function(error, results) {
             if (error) reject(new Error(error));
             resolve(results)
         })
@@ -185,10 +208,13 @@ module.exports = {
     getDetailsForAGame,
     getPlatformsForAGame,
     getRatingsForAGame,
+    getImagesForAGame,
     getAllGamesRootQuery,
     getAllGenresRootQuery,
     getAllGamesForAPlatform,
     getAllGamesForAGenre,
     getAllFeaturedGames,
+    getLatestGames,
+    getLatestGame,
     addGames
 }

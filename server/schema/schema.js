@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLFloat, GraphQLList, GraphQLSchema, GraphQLNonNull } = require("graphql");
+const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLFloat, GraphQLList, GraphQLSchema, GraphQLNonNull, GraphQLInt, GraphQLBoolean } = require("graphql");
 
 const queries = require("../queries/queries");
 
@@ -46,6 +46,12 @@ const GameType = new GraphQLObjectType({
             async resolve(parent) {
                 return await queries.getRatingsForAGame(parent.id);
             }
+        },
+        images: {
+            type: new GraphQLList(GraphQLString),
+            async resolve(parent) {
+                return await queries.getImagesForAGame(parent.id);
+            }
         }
     })
 });
@@ -64,6 +70,9 @@ const GameDetailsType = new GraphQLObjectType({
         },
         featuredImage: {
             type: GraphQLString
+        },
+        stock: {
+            type: GraphQLInt
         }
     })
 });
@@ -130,6 +139,18 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(GameType),
             async resolve() {
                 return await queries.getAllFeaturedGames();
+            }
+        },
+        latestGames: {
+            type: new GraphQLList(GameType),
+            async resolve() {
+                return await queries.getLatestGames();
+            }
+        },
+        latestGame: {
+            type: new GraphQLList(GameType),
+            async resolve() {
+                return await queries.getLatestGame();
             }
         }
     }
